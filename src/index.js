@@ -20,6 +20,6 @@ root.render(
 
     // <StarRating maxRating={5} message={["Terrible", "Bad", "Okay", "Good", "Amaizing"]} />
     // <StarRating maxRating={5} color='red' size='50' defaultRating="3" />
-    <Test/>
+    // <Test/>
   </React.StrictMode>
 );
