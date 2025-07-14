@@ -50,7 +50,7 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "<YOUR KEY HERE>";
+const KEY = "eef23e42";
 const query = "Inception"
 
 export default function App() {
@@ -99,7 +99,7 @@ export default function App() {
         <Box >
           {/* {isLoading ? <Loader /> :  <MovieList movies={movies}/>} */}
           {isLoading && <Loader/>}
-          {isLoading && !error && <MovieList movies={movies} />}
+          {!isLoading && !error && <MovieList movies={movies} />}
           {error && <ErrorMessage message={error}/> }
         </Box>
         <Box>
