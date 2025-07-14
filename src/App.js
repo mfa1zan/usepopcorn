@@ -50,8 +50,8 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "eef23e42";
-const query = "asdfasd"
+const KEY = "<YOUR KEY HERE>";
+const query = "Inception"
 
 export default function App() {
   const [movies, setMovies] = useState([]);
