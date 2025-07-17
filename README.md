@@ -2,6 +2,9 @@
 
 A simple React app for searching movies, viewing details, and rating them with a custom star rating component. Built for learning React hooks, component composition, and state management.
 
+## 📷 Preview
+![Web Page Screenshot](./assets/Preview.png)
+
 ## Clone the Repository
 
 Clone this repo using:
