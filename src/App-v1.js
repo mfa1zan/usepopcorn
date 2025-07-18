@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import StarRating from './StarRating'
 
 const average = (arr) =>
@@ -9,15 +9,10 @@ const KEY = "eef23e42";
 export default function App() {
   const [query, setQuery] = useState("interstellar");
   const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
   const [isLoading,setIsLoading] = useState(false)
   const [selectedId,setSelectedId] = useState(null)
   const [error,setError] = useState("")
-  
-  // const [watched, setWatched] = useState([]);
-  const [watched, setWatched] = useState(function (){
-    const storedValue = localStorage.getItem('watched')
-    return JSON.parse(storedValue)
-  });
 
   function handleSelectMovie(id){
     setSelectedId(selectedId => selectedId === id ? null : id)
@@ -29,8 +24,6 @@ export default function App() {
 
   function handleAddWatched(movie){
     setWatched(watched=>[...watched,movie])
-
-    // localStorage.setItem('watched', JSON.stringify([...watched,movie]))
   }
 
   function handleDeleteWatched(id){
@@ -38,9 +31,7 @@ export default function App() {
 
   }
 
-  useEffect(function (){
-    localStorage.setItem('watched', JSON.stringify(watched))
-  },[watched])
+  
 
   useEffect(function(){
     const controller = new AbortController()
@@ -130,32 +121,6 @@ function NavBar({children}){
 }
 
 function Search({query, setQuery}){
-  const inputEl = useRef(null)
-
-  useEffect(
-    function(){
-      function callback(e){
-        if(document.activeElement === inputEl.current){
-          return;
-        }
-
-        if(e.code === "Enter"){
-          inputEl.current.focus()
-          setQuery("")
-        }
-      }
-      document.querySelector("keydown",callback)
-      
-      return ()=> document.querySelector("keydown",callback)
-    },[setQuery]
-  )
-  // useEffect(
-  //   function(){
-  //     const el = document.querySelector(".search")
-  //     console.log(el)
-  //     el.focus();
-  //   },[]
-  // )
 
   return <input
           className="search"
@@ -163,7 +128,6 @@ function Search({query, setQuery}){
           placeholder="Search movies..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          ref={inputEl}
         />
 }
 
@@ -230,20 +194,36 @@ function Movie({movie, onSelectMovie}){
                 </li>
 }
 
+// function WatchedBox(){
+//  const [watched, setWatched] = useState(tempWatchedData);
+
+//   const [isOpen2, setIsOpen2] = useState(true);
+
+  
+
+//   return <div className="box">
+//           <button
+//             className="btn-toggle"
+//             onClick={() => setIsOpen2((open) => !open)}
+//           >
+//             {isOpen2 ? "–" : "+"}
+//           </button>
+//           {isOpen2 && (
+//             <>
+              
+//             <WatchedSummary watched={watched} />
+//               <WatchedMoviesList watched={watched}/>
+//             </>
+//           )}
+//         </div>
+// }
+
 
 function MovieDetails({selectedId, onCloseMovie, onAddWatched, watched}){
   const [movie,setMovie] = useState({})
   const [isLoading,setIsLoading] = useState(false)
   const [userRating,setUserRating] = useState('')
   // const [isWatched,setIsWatched] = useState(false)
-
-  const countRef = useRef(0)
-
-  useEffect(function(){
-    if(userRating){
-      countRef.current = countRef.current + 1
-    }
-  },[userRating])
 
   const isWatched = watched.map(movie => movie.imdbID).includes(selectedId)
   const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating
@@ -270,8 +250,7 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched, watched}){
       poster,
       imdbRating: Number(imdbRating),
       runtime: runtime.split('').at(0),
-      userRating,
-      countRatingDecisions: countRef.current
+      userRating
     }
     onAddWatched(newWatchedMovie)
     onCloseMovie();
@@ -338,6 +317,8 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched, watched}){
                       <p>Starring {actors}</p>
                       <p>Directed by {director}</p>
                     </section>
+                    
+                    {selectedId}
             </div>}
     </>
 }
