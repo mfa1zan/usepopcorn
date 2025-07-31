@@ -6,7 +6,7 @@ A simple React app for searching movies, viewing details, and rating them with a
 ![Web Page Screenshot](./assets/Preview.png)
 
 ## Clone the Repository
-
+b
 Clone this repo using:
 ```bash
 git clone https://github.com/mfa1zan/usepopcorn.git
