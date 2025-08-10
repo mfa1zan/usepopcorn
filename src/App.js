@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"; 
 import { useMovies } from "./custom hooks/useMovies";
 import { useLocalStorageState } from "./custom hooks/useLocalStorageState";
 import Loader from "./components/Loader";
